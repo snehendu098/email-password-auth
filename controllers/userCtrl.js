@@ -81,7 +81,7 @@ const userCtrl = {
     const id = req.user.id;
     try {
       const user = await User.findById(id).select("-password");
-      res.status(400).json(user);
+      res.status(200).json(user);
     } catch (e) {
       console.log(e.message);
     }
