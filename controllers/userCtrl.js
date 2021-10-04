@@ -36,7 +36,7 @@ const userCtrl = {
         expiresIn: "180d",
       });
 
-      res.status(200).json({ token: token });
+      return res.status(200).json({ token: token });
 
       res.json(newUser);
     } catch (e) {
@@ -71,7 +71,17 @@ const userCtrl = {
         expiresIn: "180d",
       });
 
-      res.status(200).json({ token });
+      return res.status(200).json({ token });
+    } catch (e) {
+      console.log(e.message);
+    }
+  },
+
+  getUser: async (req, res) => {
+    const id = req.user.id;
+    try {
+      const user = await User.findById(id).select("-password");
+      res.status(400).json(user);
     } catch (e) {
       console.log(e.message);
     }
